@@ -31,7 +31,7 @@ EOF
     {
         $amount = $input->getArgument('amount');
 
-        $output->writeln('hola sebas');
+        $output->writeln(sprintf('hola sebas, vales %s', $amount));
     }
 
 }
