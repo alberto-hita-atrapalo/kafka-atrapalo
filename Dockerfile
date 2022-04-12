@@ -22,7 +22,9 @@ RUN apt-get update \
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) zip \
     && pecl install rdkafka-5.0.2 \
-    && docker-php-ext-enable rdkafka
+    && docker-php-ext-enable rdkafka \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
 # COMPOSER
 COPY --from=composer:2.2 /usr/bin/composer /usr/local/bin/composer

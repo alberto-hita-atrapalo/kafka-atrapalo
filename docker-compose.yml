@@ -33,6 +33,12 @@ services:
     depends_on:
       - kafka
 
+  redis:
+    image: redis:3.2.3-alpine
+    restart: on-failure
+    ports:
+      - "6380:6379"
+
   php:
     build: .
     environment:
@@ -48,6 +54,7 @@ services:
     depends_on:
       - kafka
       - zookeeper
+      - redis
 
 volumes:
   zookeeper_data:

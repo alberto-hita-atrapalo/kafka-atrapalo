@@ -43,11 +43,13 @@ EOF
     {
         $amount = (int)$input->getArgument('amount');
 
-        $output->writeln(sprintf('hola sebas, vales %s', $amount));
+        $output->writeln(sprintf('sending %s messages', $amount));
 
+        $memory = memory_get_peak_usage(true);
         for ($i = 0; $i < $amount; $i++) {
             $this->bus->dispatch(new LogNotification(md5($i)));
         }
+        $output->writeln(sprintf('Memoria: %sMB', (memory_get_peak_usage(true)-$memory)/1024/1024));
     }
 
 }

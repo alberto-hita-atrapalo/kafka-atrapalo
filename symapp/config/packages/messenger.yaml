@@ -5,8 +5,16 @@ framework:
         transports:
             async:
                 dsn:  "%env(MESSENGER_TRANSPORT_DSN)%"
+                retry_strategy:
+                    max_retries: 0
+                    # milliseconds delay
+                    delay: 0
+                    # causes the delay to be higher before each retry
+                    # e.g. 1 second delay, 2 seconds, 4 seconds
+                    multiplier: 1
+                    max_delay: 0
             failed:
-                dsn: "file://failed.txt"
+                dsn: "%env(MESSENGER_FAILURE_DSN)%"
 
         routing:
             'App\Message\LogNotification': async
