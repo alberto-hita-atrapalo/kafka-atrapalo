@@ -8,5 +8,5 @@ framework:
             failed:
                 dsn: "file://failed.txt"
 
-#        routing:
-#            'App\Message\LogNotification': async
+        routing:
+            'App\Message\LogNotification': async
