@@ -1,4 +1,4 @@
-#Kafka as Intermediate Logs Buffer
+# Kafka as Intermediate Logs Buffer
 This project aims to be the start point for any project that involves Kafka + PHP.
 
 ## Main Goal
@@ -10,6 +10,7 @@ example and a running configuration to build connected applications.
 
     $ make up
 
+> **TIP**: See more commands available in the Makefile
 
 ## Docker Configuration
 There are configured 6 containers:
