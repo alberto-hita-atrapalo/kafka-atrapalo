@@ -30,7 +30,3 @@ logs:
 ## shell:                 Interactive shell to use commands inside docker
 shell:
 	docker-compose exec php bash
-
-## cache:                  Clean symfony cache
-cache:
-	docker-compose run --rm php app/console cache:clear --env=dev

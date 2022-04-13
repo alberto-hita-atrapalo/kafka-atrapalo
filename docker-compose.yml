@@ -12,21 +12,36 @@ services:
 
   kafka:
     image: docker.io/bitnami/kafka:3.1
-    ports:
-      - "9092:9092"
     volumes:
-      - "kafka_data:/bitnami"
+      - "kafka_data1:/bitnami"
     environment:
+      - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=host.docker.internal
+      - KAFKA_AUTO_LEADER_REBALANCE_ENABLE=true
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+
+  kafka2:
+    image: docker.io/bitnami/kafka:3.1
+    volumes:
+      - "kafka_data2:/bitnami"
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=host.docker.internal
+      - KAFKA_AUTO_LEADER_REBALANCE_ENABLE=true
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+
 
   kafdrop:
     image: obsidiandynamics/kafdrop
     restart: "no"
     ports:
-      - "9000:9000"
+      - "9009:9000"
     environment:
       KAFKA_BROKERCONNECT: "kafka:9092"
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
@@ -51,6 +66,8 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www:cached
+      - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
     depends_on:
       - kafka
       - zookeeper
@@ -59,5 +76,7 @@ services:
 volumes:
   zookeeper_data:
     driver: local
-  kafka_data:
+  kafka_data1:
+    driver: local
+  kafka_data2:
     driver: local

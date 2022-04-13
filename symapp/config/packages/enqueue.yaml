@@ -2,10 +2,16 @@ enqueue:
   default:
     transport:
       dsn: "rdkafka://"
+      error_cb: App\Kafka\Infrastructure\FailureCallback::fail
       global:
         group.id: 'myapp'
         metadata.broker.list: "%env(KAFKA_BROKER_LIST)%"
+        socket.timeout.ms: '100'
+        queue.buffering.max.ms: '1'
+        queue.buffering.max.messages: '2000'
       topic:
         auto.offset.reset: beginning
-      commit_async: true
+        message.timeout.ms: '100'
+        request.required.acks: '1'
+      commit_async: false
     client: ~

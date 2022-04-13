@@ -3,7 +3,7 @@ framework:
         failure_transport: failed
 
         transports:
-            async:
+            sync:
                 dsn:  "%env(MESSENGER_TRANSPORT_DSN)%"
                 retry_strategy:
                     max_retries: 0
@@ -17,4 +17,4 @@ framework:
                 dsn: "%env(MESSENGER_FAILURE_DSN)%"
 
         routing:
-            'App\Message\LogNotification': async
+            'App\Message\LogNotification': sync
