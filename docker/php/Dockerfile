@@ -1,4 +1,4 @@
-FROM gitlab.atrapalo.com:5005/docker/node:10-latest as builder
+FROM gitlab.atrapalo.com:5005/docker/php-fpm-public:7.4-latest as builder
 
 # Packages
 RUN apt-get update \
