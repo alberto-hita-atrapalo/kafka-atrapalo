@@ -1,0 +1,15 @@
+{
+  "name": "kafka-node-atrapalo",
+  "version": "1.0.0",
+  "description": "NodeJS Kafka connector implementation",
+  "main": "app.js",
+  "dependencies": {
+    "kafkajs": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian Alonso & Alberto Hita",
+  "license": "ISC"
+}
