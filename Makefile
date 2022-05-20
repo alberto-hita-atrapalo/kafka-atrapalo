@@ -9,7 +9,8 @@ help: Makefile
 
 ## install: 	        Install packages.
 install:
-	docker-compose run --rm php composer install
+	docker-compose run --rm php composer install;
+	docker-compose run --rm node npm install
 
 ## up:		        Init environment.
 up:

@@ -20,6 +20,10 @@ There are configured 6 containers:
 * kafdrop: GUI for kafka topics
 * redis: Failover transport database
 * php: symfony enabled application
+* node: nodejs enabled application
+* graylog2: GrayLog2 application
+* elasticsearch: GrayLog2 final storage
+* mongo: GrayLog2 base persistence.
 
 > **TIP**: See docker-compose.yml file.
 
@@ -42,11 +46,21 @@ or
 
     root@dadada:/var/www# symapp/bin/console k:s 10
 
+## NodeJS
+In the `nodeapp` folder there is a node application which is able to connect to kafka and send messages to graylog2.
+
+    docker-compose run --rm node bash
+    # node app.js
+
+It sends one testing message and connects to kafka to retrieve messages and send them to graylog2.
+
+
 The last command sends 10 messages using a developed symfony console command.
 
 ## Important configuration
 There are several files that are important in order to configure the system properly:
-* Dockerfile: Configures php container enabling kafka
+* docker/php/Dockerfile: Configures php container enabling kafka
+* docker/node/Dockerfile: Configures node container
 * docker-compose.yaml: configures containers
 * symapp/config/enqueue.yaml: configures the rdkafka library
 * symapp/config/messenger.yaml: configures the queues and routing for the messages.
