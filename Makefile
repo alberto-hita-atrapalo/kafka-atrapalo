@@ -14,11 +14,7 @@ install:
 
 ## up:		        Init environment.
 up:
-	export XDEBUG_MODE="develop"; docker-compose up -d
-
-## debug: 	        Run the necessary services to run web with xdebug
-debug:
-	export XDEBUG_MODE="develop,debug,coverage"; docker-compose up -d
+	docker-compose up -d
 
 ## down: 		        Down environment.
 down:

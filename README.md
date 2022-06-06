@@ -57,11 +57,24 @@ It sends one testing message and connects to kafka to retrieve messages and send
 
 The last command sends 10 messages using a developed symfony console command.
 
+## Apache access logs and Syslog
+The _php_ container has included the _syslog-ng_ binaries, and it is configured to read from
+apache access log and syslog as well and send each entry to kafka.
+> **TIP**: To test Apache's access log, please access [this](http://localhost:8090/) url. Apache is located at the _8090_ port.
+
+> **TIP**: To test syslog, enter into the _php_ container command line and execute the following command:
+
+    # logger -t <application_name> <message>
+
 ## Important configuration
 There are several files that are important in order to configure the system properly:
-* docker/php/Dockerfile: Configures php container enabling kafka
-* docker/node/Dockerfile: Configures node container
-* docker-compose.yaml: configures containers
-* symapp/config/enqueue.yaml: configures the rdkafka library
-* symapp/config/messenger.yaml: configures the queues and routing for the messages.
-* .env: environment DSN configurations.
+* *docker/php/Dockerfile* Configures php container enabling kafka
+* *docker/php/apache/sites-available/000-default.conf* Apache's default website configuration file
+* *docker/php/syslog-ng/conf.d/kafka.conf* Syslog-ng kafka configuration (for Apache and syslog) 
+* *docker/node/Dockerfile* Configures node container
+* *docker-compose.yaml* configures containers
+* *symapp/config/enqueue.yaml* configures the rdkafka library
+* *symapp/config/messenger.yaml* configures the queues and routing for the messages.
+* *.env* environment DSN configurations.
+
+

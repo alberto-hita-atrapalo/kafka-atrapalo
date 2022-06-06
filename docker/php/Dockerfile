@@ -1,4 +1,4 @@
-FROM php:7.4-fpm as builder
+FROM php:7.4-apache as builder
 
 # Packages
 RUN apt-get update \
@@ -8,6 +8,7 @@ RUN apt-get update \
         libzip-dev \
         unzip \
         python \
+        syslog-ng \
         && ( \
             cd /tmp \
             && mkdir librdkafka \
@@ -30,3 +31,8 @@ RUN docker-php-ext-install -j$(nproc) zip \
 
 # COMPOSER
 COPY --from=composer:2.2 /usr/bin/composer /usr/local/bin/composer
+
+# CREATE PHYSICAL ACCESS LOG FILE
+RUN rm /var/log/apache2/access.log
+RUN touch /var/log/apache2/access.log
+RUN chown www-data.www-data /var/log/apache2/access.log

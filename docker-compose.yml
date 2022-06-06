@@ -68,9 +68,14 @@ services:
       - ./symapp:/var/www:cached
       - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+      - ./docker/php/syslog-ng/conf.d/kafka.conf:/etc/syslog-ng/conf.d/kafka.conf
+      - ./docker/php/apache/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - 8090:80
     depends_on:
-      - kafka
       - zookeeper
+      - kafka
+      - kafka2
       - redis
 
   node:
@@ -79,8 +84,9 @@ services:
     volumes:
       - ./nodeapp:/var/www:cached
     depends_on:
-      - kafka
       - zookeeper
+      - kafka
+      - kafka2
 
   # MongoDB: https://hub.docker.com/_/mongo/
   mongo:
