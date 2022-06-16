@@ -40,11 +40,11 @@ In order to send a message and verify it in the kafdrop application you have to
 perform the following commands:
 
     $ make shell
-    root@dadada:/var/www# symapp/bin/console enqueue:produce --topic transport -vvv "hello world"
+    root@dadada:/var/www# bin/console enqueue:produce --topic transport -vvv "hello world"
 
 or 
 
-    root@dadada:/var/www# symapp/bin/console k:s 10
+    root@dadada:/var/www# bin/console k:s 10
 
 ## NodeJS
 In the `nodeapp` folder there is a node application which is able to connect to kafka and send messages to graylog2.
@@ -60,6 +60,10 @@ The last command sends 10 messages using a developed symfony console command.
 ## Apache access logs and Syslog
 The _php_ container has included the _syslog-ng_ binaries, and it is configured to read from
 apache access log and syslog as well and send each entry to kafka.
+> **TIP**: First of all: restart syslog to read the configuration.
+
+    # service syslog-ng restart
+
 > **TIP**: To test Apache's access log, please access [this](http://localhost:8090/) url. Apache is located at the _8090_ port.
 
 > **TIP**: To test syslog, enter into the _php_ container command line and execute the following command:
