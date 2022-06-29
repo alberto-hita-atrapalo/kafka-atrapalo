@@ -9,6 +9,8 @@ RUN apt-get update \
         unzip \
         python \
         syslog-ng \
+        wget \
+        openjdk-17-jre \
         && ( \
             cd /tmp \
             && mkdir librdkafka \
@@ -18,7 +20,18 @@ RUN apt-get update \
             && make \
             && make install \
         ) \
+        && ( \
+            cd /tmp \
+            && mkdir confluent-hub \
+            && cd confluent-hub \
+            && wget http://client.hub.confluent.io/confluent-hub-client-latest.tar.gz \
+            && tar -zxpvf confluent-hub-client-latest.tar.gz \
+            && cd ..\
+            && mv confluent-hub /opt \
+        ) \
     && rm -r /var/lib/apt/lists/*
+
+ENV PATH="/opt/confluent-hub/bin:${PATH}"
 
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) zip \
